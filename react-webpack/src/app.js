@@ -1,50 +1,52 @@
 'use strict'
 
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 // import Title from './title'
 // import Button from './button'
 // import Square from './square'
 // import LikeButton from './like-button'
 // import SearchButton from './search-button'
-import Timer from './timer'
+// import Timer from './timer'
 
-class App extends Component{
+class App extends Component {
 
-    constructor (){
-        console.log('constructor')
-            
-        super()
-        this.state = {
-            // color: 'green'
-            time: 0,
-            showTimer: true
-        }
-    }
+    // constructor() {
+    //     console.log('constructor')
+    //     super()
+    //     this.state = {
+    //         // color: 'green'
+    //         // time: 0,
+    //         // showTimer: true
+    //         value: 'Valor Inicial',
+    //         checked: false,
+    //         selected: '2'
+    //     }
+    // }
 
-    componentWillMount(){
-        console.log('componentWillMount')        
-    }
+    // componentWillMount(){
+    //     console.log('componentWillMount')        
+    // }
 
-    componentDidMount(){
-        console.log('componentDidMount')        
-    }   
-    
-    render (){
+    // componentDidMount(){
+    //     console.log('componentDidMount')        
+    // }   
+
+    render() {
         console.log('render')
-        return(
+        return (
             <div>
-             {/* onClick={() => this.setState({
+                {/* onClick={() => this.setState({
                 text: 'outro texto'
             })} */}
-           
-              {/* <LikeButton />
+
+                {/* <LikeButton />
               <SearchButton /> */}
 
-             {/* <Title name='Rafael' lastname={{first: 'Cardoso', second: 'Tozi'}}/> */}
-             {/* {['blue', 'red', 'green'].map((square, index) => (
+                {/* <Title name='Rafael' lastname={{first: 'Cardoso', second: 'Tozi'}}/> */}
+                {/* {['blue', 'red', 'green'].map((square, index) => (
                    <Square key={index} color={square}></Square>
              ))}            */}
-            {/* <Square color={this.state.color} />
+                {/* <Square color={this.state.color} />
 
             {['red', 'green', 'blue'].map((color) => (
                 <Button key={color} 
@@ -52,17 +54,65 @@ class App extends Component{
                 {color}
                 </Button>
             ))} */}
-            
-            {/* {this.state.showTimer && <Timer time={this.state.time} />}
+
+                {/* {this.state.showTimer && <Timer time={this.state.time} />}
             <button onClick={() => {
-                this.setState({ showTimer: !this.state.showTimer })
+                this.setState({ showTimer: !this.state.showTimer }) 
             }}>Show / Hide timer</button> */}
 
-            <Timer time={this.state.time}/>
+                {/* <Timer time={this.state.time}/>
 
             <button onClick={() => {
                 this.setState({ time: this.state.time + 10 })
-            }}>Change props</button>
+            }}>Change props</button> */}
+
+                {/* <Button handleClick={() => console.log('Clicou')}>Clique em mim</Button> */}
+
+                <form onSubmit={(e) => {
+                    e.preventDefault()
+                    console.log('event', e)
+                }}
+
+                    onChange={(e) => {
+                        console.log('name', e.target.name)
+                        console.log('value', e.target.value)
+
+                    }}
+                >
+
+                    <input type='name' name='name'/>
+                    <input type='email' name='email' />
+
+                    <input type='checkbox' />
+
+                    {/* <input type="text" value={this.state.value} onChange={(e) => {
+                        console.log(e.nativeEvent)
+                        this.setState({
+                            value: e.target.value
+                        })
+                    }} />
+                    <label>
+                        <input type='checkbox'
+                            value='my-checkbox'
+                            checked={this.state.checked}
+                            onChange={(e) => {
+                                this.setState({ checked: e.target.checked })
+                            }} />
+                        Checkbox
+                    </label>
+
+                    <input type='radio' name='rd' value='1' defaultChecked/> Radio 1
+                    <input type='radio' name='rd' value='2' /> Radio 2 */}
+                    {/* <select multiple value={['1', '2']} onChange={(e) =>{
+                        this.setState({value: e.target.selected})
+                    }}>
+                        <option value="1">Opção 1</option>
+                        <option value="2">Opção 2</option>
+                        <option value="3">Opção 3</option>
+                    </select> */}
+                    {/* <textarea name='textarea' defaultValue={'textarea \nvalue'} /> */}
+                    <button type='submit'>Enviar</button>
+                </form>
             </div>
         )
     }
