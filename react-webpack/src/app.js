@@ -7,6 +7,11 @@ import React, { Component } from 'react'
 // import LikeButton from './like-button'
 // import SearchButton from './search-button'
 // import Timer from './timer'
+import $ from "jquery"
+import Search from './components/search'
+import UserInfo from './components/user-info'
+import Actions from './components/actions'
+import Repos from './components/repos'
 
 class App extends Component {
 
@@ -28,9 +33,21 @@ class App extends Component {
     //     console.log('componentWillMount')        
     // }
 
-    // componentDidMount(){
-    //     console.log('componentDidMount')        
-    // }   
+    // componentDidMount() {
+    //     console.log('componentDidMount')
+
+    //     $.ajax({
+    //         url: '/test/PersonSubmit',
+    //         type: 'post',
+    //         dataType: 'json',
+    //         contentType: 'application/json',
+    //         success: function (data) {
+    //            console.log()               
+    //         },
+    //         data: JSON.stringify(person)
+    //     })
+
+    // }
 
     render() {
         console.log('render')
@@ -128,21 +145,22 @@ class App extends Component {
 
                 {this.state.showContent && <div>Olha eu aqui!</div>} */}
 
-                <div className='user-info'>
-                    <img src='https://avatars2.githubusercontent.com/u/487669?v=4' />
-                    <h2>
-                        <a href='https://github.com/fdaciuk'>Fernando Daciuk </a>
-                    </h2>
-                    <ul className='repos-info'>
-                        <li>- Repositórios: 167</li>
-                        <li>- Seguidores: 1733</li>
-                        <li>- Seguindo: 228</li>
-                    </ul>
-                    <div className='actions'>
-                        <button>Ver repositórios</button>
-                        <button>Ver favoritos</button>
-                    </div>
-                </div>
+                <Search />
+                <UserInfo />
+                <Actions />
+                <Repos className='repos'
+                    title='Repositórios: '
+                    repos={[{
+                        name: 'Nome do repositório',
+                        link: '#'
+                    }]} />
+
+                <Repos className='starred'
+                    title='Favoritos: '
+                    repos={[{
+                        name: 'Nome do repositório',
+                        link: '#'
+                    }]} />
             </div>
         )
     }
