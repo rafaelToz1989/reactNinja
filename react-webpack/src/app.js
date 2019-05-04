@@ -24,10 +24,12 @@ class App extends Component {
             // selected: '2',
             // checked: false,
             // showContent: false
+            // searchFieldDisabled: false
             userinfo: null,
             repos: [],
             starred: [],
-            searchFieldDisabled: false
+            isFetching: false
+            
         }
     }
 
@@ -42,11 +44,14 @@ class App extends Component {
             const keyCode = e.which || e.keyCode
             const ENTER = 13
             
-            e.persist()
+            // e.persist()
             
             if (keyCode === ENTER) {
-                e.target.disable = true
-                console.log('evento: ', e) 
+                // e.target.disable = true
+                // console.log('evento: ', e) 
+                this.setState({
+                    isFetching: true
+                })
                 ajax().get(this.getGitHubApiUrl(value))
                 .then((result) =>{
                   console.log(result)
@@ -63,10 +68,7 @@ class App extends Component {
                       starred: []
                   })
                  })
-                 .always(() => {
-                    console.log('eventos: ', e)
-                    e.target.disable = false                    
-                 })
+                 .always(() => this.setState({ isFetching: false }))
                 } 
             }
 
@@ -113,6 +115,7 @@ class App extends Component {
             userinfo={this.state.userinfo} 
             repos={this.state.repos}
             starred={this.state.starred}
+            isFetching={this.state.isFetching}
             handleSearch={(e) => this.handleSearch(e)}
             getRepos={this.getRepos('repos')}
             getStarred={this.getRepos('starred')}
