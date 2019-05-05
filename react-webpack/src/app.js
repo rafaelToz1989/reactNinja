@@ -11,6 +11,16 @@ import React, { Component } from 'react'
 import ajax from '@fdaciuk/ajax'
 import AppContent from './components/app-content'
 
+// const App = React.createClass({
+//     handleClick: function (e) {
+        
+//     },
+
+//     render () {
+//         return <button onClick={this.handleClick}>Clique</button>
+//     }    
+// })
+
 class App extends Component {
 
     constructor() {
@@ -112,10 +122,11 @@ class App extends Component {
         console.log('render')
         return (
             <AppContent 
-            userinfo={this.state.userinfo} 
-            repos={this.state.repos}
-            starred={this.state.starred}
-            isFetching={this.state.isFetching}
+            {...this.state}
+            // userinfo={this.state.userinfo} 
+            // repos={this.state.repos}
+            // starred={this.state.starred}
+            // isFetching={this.state.isFetching}
             handleSearch={(e) => this.handleSearch(e)}
             getRepos={this.getRepos('repos')}
             getStarred={this.getRepos('starred')}
