@@ -11,6 +11,16 @@ import React, { Component } from 'react'
 import ajax from '@fdaciuk/ajax'
 import AppContent from './components/app-content'
 
+// const App = React.createClass({
+//     handleClick: function (e) {
+        
+//     },
+
+//     render () {
+//         return <button onClick={this.handleClick}>Clique</button>
+//     }    
+// })
+
 class App extends Component {
 
     constructor() {
@@ -24,10 +34,12 @@ class App extends Component {
             // selected: '2',
             // checked: false,
             // showContent: false
+            // searchFieldDisabled: false
             userinfo: null,
             repos: [],
             starred: [],
-            searchFieldDisabled: false
+            isFetching: false
+            
         }
     }
 
@@ -37,38 +49,38 @@ class App extends Component {
         return `https://api.github.com/users${internalUser}${internalType}`
     }
 
-    handleSearch(e) {
-        const value = e.target.value
-        const keyCode = e.which || e.keyCode
-        const ENTER = 13
-
-        e.persist()
-
-        if (keyCode === ENTER) {
-            e.target.disable = true
-            console.log('evento: ', e)
-            ajax().get(this.getGitHubApiUrl(value))
-                .then((result) => {
-                    console.log(result)
-                    this.setState({
-                        userinfo: {
-                            username: result.name,
-                            photo: result.avatar_url,
-                            login: result.login,
-                            repos: result.public_repos,
-                            followers: result.followers,
-                            following: result.following
-                        },
-                        repos: [],
-                        starred: []
-                    })
+    handleSearch (e) {
+            const value = e.target.value
+            const keyCode = e.which || e.keyCode
+            const ENTER = 13
+            
+            // e.persist()
+            
+            if (keyCode === ENTER) {
+                // e.target.disable = true
+                // console.log('evento: ', e) 
+                this.setState({
+                    isFetching: true
                 })
-                .always(() => {
-                    console.log('eventos: ', e) 
-                    e.target.disable = false
-                })
-        }
-    }
+                ajax().get(this.getGitHubApiUrl(value))
+                .then((result) =>{
+                  console.log(result)
+                  this.setState({
+                      userinfo: {
+                        username: result.name,
+                        photo: result.avatar_url,
+                        login: result.login,
+                        repos: result.public_repos,
+                        followers: result.followers,
+                        following: result.following
+                      },
+                      repos: [],
+                      starred: []
+                  })
+                 })
+                 .always(() => this.setState({ isFetching: false }))
+                } 
+            }
 
     // componentWillMount(){
     //     console.log('componentWillMount')        
@@ -109,13 +121,15 @@ class App extends Component {
     render() {
         console.log('render')
         return (
-            <AppContent
-                userinfo={this.state.userinfo}
-                repos={this.state.repos}
-                starred={this.state.starred}
-                handleSearch={(e) => this.handleSearch(e)}
-                getRepos={this.getRepos('repos')}
-                getStarred={this.getRepos('starred')}
+            <AppContent 
+            {...this.state}
+            // userinfo={this.state.userinfo} 
+            // repos={this.state.repos}
+            // starred={this.state.starred}
+            // isFetching={this.state.isFetching}
+            handleSearch={(e) => this.handleSearch(e)}
+            getRepos={this.getRepos('repos')}
+            getStarred={this.getRepos('starred')}
             />
             //  <div className='app'>
             //    onClick={() => this.setState({
