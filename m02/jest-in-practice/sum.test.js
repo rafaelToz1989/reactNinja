@@ -1,10 +1,9 @@
 'use strict'
 
-// describe('# ESCOPO', () => {
-it('Um é igual a 1', () => {
-    // console.assert(2 === 1, '1 não é igual a 2')
-    expect(1).toBe(2)
-})
-// })
+const expect = require('chai').expect
+const sum = require('./sum')
 
+it('sum should be a function', () => {
+    expect(sum).to.be.a('function')
+})
 
